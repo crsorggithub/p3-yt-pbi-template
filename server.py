@@ -44,14 +44,19 @@ def hello():
           
           fixurl = element["data_source"]["instance_ref"][ element["data_source"]["instance_ref"].rfind(":")+1 : : ]
           print('fixurl = ' + fixurl)
-          print(app.CommCareBaseURL + 'fixture/' + fixurl)
+          print(app.CommCareBaseURL + 'fixture/?fixture_type=' + fixurl)
           response = requests.get(
-              app.CommCareBaseURL + 'fixture/' + fixurl,
+              app.CommCareBaseURL + 'fixture/?fixture_type=' + fixurl,
               headers={'Accept': 'application/json', 'Authorization': 'ApiKey ' + app.CommCareAPIKey }      
           )
           fixture_response = response.json()
           print((fixture_response))
           #print(json.dumps(fixture_response))
+          for option in fixture_response["objects"]:
+            print(json.dumps(option))
+            opt_val_obj = {}
+            opt_val_obj =  option["fields"].keys()
+            print(opt_val_obj)
           
 
           
