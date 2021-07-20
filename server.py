@@ -23,9 +23,9 @@ def hello():
   print('-------')
   for element in questions:
     
-    print (str(not element["is_group"]) + ' ' + str(element["type"] != "Trigger") + ' ' + str(element["type"] != "FieldList"))
-    if (not element["is_group"]) or (element["type"] != "Trigger" and element["type"] != "FieldList") :
-      print(element["type"] + ' - ' + element["label"])
+    #print (str(not element["is_group"]) + ' ' + str(element["type"] != "Trigger") + ' ' + str(element["type"] != "FieldList"))
+    if (not element["is_group"]) and (element["type"] != "Trigger" and element["type"] != "FieldList") :
+      print(element["type"] + ': ' + element["label"])
       el = {}
     #el["Label"] = fixStr(element["label"])
     #el["LabelFR"] = fixStr(element["translations"]["en"])
