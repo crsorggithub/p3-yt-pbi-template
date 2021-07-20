@@ -33,7 +33,14 @@ def hello():
       el["LabelPOR"] = (element["translations"]["por"])
       el["type"] = element["type"];
       el["required"] = element["required"];
-      el["commcareid"] = element["value"];
+      el["commcareid"] = element["value"][ element["value"].rfind("/")+1 : : ]
+      
+      # if there's a fixture, get the data
+      if element["data_source"]:
+        if element["data_source"]["instance_ref"]:
+          fixture = element["data_source"]["instance_ref"]
+          print('fixture = ' + fixture)
+          
     #if (el["type"] == 'Select'):
       #if (element["options"]):
   print(json.dumps(el))  
