@@ -38,8 +38,18 @@ def hello():
       
       if el["type"] == "MSelect":
         print("---------------------- MSELECT")
-        print(json.dumps(element))
+        for option in element["options"]:
+          print(option)
+          opt_val_obj = {}
+          opt_val_obj["label"] = option["label"]
+          opt_val_obj["labelES"] = option["label"]["translatons"]["es"]
+          opt_val_obj["labelPOR"] = option["label"]["translatons"]["por"]
+          opt_val_obj["labelFRA"] = option["label"]["translatons"]["fra"]
+          opt_val_obj["key"] = option["value"]
+        
+        el["options"].append(opt_val_obj)
       # if there's a fixture, get the data
+      
       ds = "data_source"
       if ds in element:
         ir = "instance_ref"
