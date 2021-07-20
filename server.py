@@ -21,13 +21,16 @@ def hello():
   questions = json_response["modules"][0]["forms"][0]["questions"]
   print(questions)
   for element in questions:
-    el = {}
-    el["Label"] = fixStr(element["label"])
-    el["LabelFR"] = fixStr(element["translations"]["en"])
-    el["LabelES"] = fixStr(element["translations"]["es"])
+    print( element["is_group"])
+    if not element["is_group"] or element["type:
+      print("")
+      el = {}
+    #el["Label"] = fixStr(element["label"])
+    #el["LabelFR"] = fixStr(element["translations"]["en"])
+    #el["LabelES"] = fixStr(element["translations"]["es"])
     #el["LabelPOR"] = fixStr(element["translations"]["por"])
-    el["type"] = element["type"];
-    el["required"] = element["required"];
+      el["type"] = element["type"];
+      el["required"] = element["required"];
     #if (el["type"] == 'Select'):
       #if (element["options"]):
   print(json.dumps(el))  
