@@ -52,10 +52,30 @@ def hello():
           fixture_response = response.json()
           print((fixture_response))
           #print(json.dumps(fixture_response))
+          
           for option in fixture_response["objects"]:
             print(json.dumps(option))
             opt_val_obj = {}
+            i = 0
+            #print('len = ' + str(len(option["fields"])))
+            print(list(option.items())[0])
             for field in option["fields"]:
+              if len(option["fields"]) > 2:
+                if i == 0:
+                  opt_val_obj["root_id"] = option["fields"][field]
+                if i == 1:
+                  opt_val_obj["label"] = option["fields"][field]
+                if i == 2:
+                  opt_val_obj["key"] = option["fields"][field]
+              else:
+                if i == 0:
+                  opt_val_obj["label"] = option["fields"][field]
+                if i == 1:
+                  opt_val_obj["key"] = option["fields"][field]                
+              
+              i = i + 1
+              
+              print('i=' + str(i))
               print(field + ' = ' + option["fields"][field])
             print(opt_val_obj)
           
