@@ -55,7 +55,8 @@ def hello():
           for option in fixture_response["objects"]:
             print(json.dumps(option))
             opt_val_obj = {}
-            opt_val_obj =  option["fields"].keys()
+            for field in option["fields"]:
+              print(field + ' = ' + option["fields"][field])
             print(opt_val_obj)
           
 
