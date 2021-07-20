@@ -35,16 +35,24 @@ def hello():
       el["required"] = element["required"];
       el["commcareid"] = element["value"][ element["value"].rfind("/")+1 : : ]
       el["options"] = []
-      
-      if el["type"] == "MSelect":
-        print("---------------------- MSELECT")
+
+      ds = "data_source"
+            
+      if el["type"] == "MSelect" and ds not in element:
+        print("---------------------- MSELECT ----")
+        
         for option in element["options"]:
+          
           print(option)
+          print(option["label"])
+          print(option["translatons"]["es"])
+          print(option["translatons"]["por"])
+          print(option["translatons"]["fra"])
           opt_val_obj = {}
           opt_val_obj["label"] = option["label"]
-          opt_val_obj["labelES"] = option["label"]["translatons"]["es"]
-          opt_val_obj["labelPOR"] = option["label"]["translatons"]["por"]
-          opt_val_obj["labelFRA"] = option["label"]["translatons"]["fra"]
+          opt_val_obj["labelES"] = option["translatons"]["es"]
+          opt_val_obj["labelPOR"] = option["translatons"]["por"]
+          opt_val_obj["labelFRA"] = option["translatons"]["fra"]
           opt_val_obj["key"] = option["value"]
         
         el["options"].append(opt_val_obj)
@@ -53,6 +61,8 @@ def hello():
       ds = "data_source"
       if ds in element:
         ir = "instance_ref"
+        print(element)
+
         if ir  in element["data_source"]:
           fixture = element["data_source"]["instance_ref"]
           fixurl = element["data_source"]["instance_ref"][ element["data_source"]["instance_ref"].rfind(":")+1 : : ]
