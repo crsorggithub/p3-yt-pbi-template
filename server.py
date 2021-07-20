@@ -41,7 +41,19 @@ def hello():
         ir = "instance_ref"
         if ir  in element["data_source"]:
           fixture = element["data_source"]["instance_ref"]
-          print('fixture = ' + fixture)
+          
+          fixurl = element["data_source"]["instance_ref"][ element["data_source"]["instance_ref"].rfind(":")+1 : : ]
+          print('fixurl = ' + fixurl)
+          print(app.CommCareBaseURL + 'fixture/' + fixurl)
+          response = requests.get(
+              app.CommCareBaseURL + 'fixture/' + fixurl,
+              headers={'Accept': 'application/json', 'Authorization': 'ApiKey ' + app.CommCareAPIKey }      
+          )
+          fixture_response = response.json()
+          print((fixture_response))
+          #print(json.dumps(fixture_response))
+          
+
           
     #if (el["type"] == 'Select'):
       #if (element["options"]):
