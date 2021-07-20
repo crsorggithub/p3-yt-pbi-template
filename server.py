@@ -27,15 +27,16 @@ def hello():
     if (not element["is_group"]) and (element["type"] != "Trigger" and element["type"] != "FieldList") :
       print(element["type"] + ': ' + element["label"])
       el = {}
-    #el["Label"] = fixStr(element["label"])
-    #el["LabelFR"] = fixStr(element["translations"]["en"])
-    #el["LabelES"] = fixStr(element["translations"]["es"])
-    #el["LabelPOR"] = fixStr(element["translations"]["por"])
+      el["Label"] = element["label"]
+      el["LabelFR"] = (element["translations"]["en"])
+      el["LabelES"] = (element["translations"]["es"])
+      el["LabelPOR"] = (element["translations"]["por"])
       el["type"] = element["type"];
       el["required"] = element["required"];
+      el["commcareid"] = element["value"];
     #if (el["type"] == 'Select'):
       #if (element["options"]):
-  #print(json.dumps(el))  
+  print(json.dumps(el))  
   
   return "Hello World!"
   
