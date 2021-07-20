@@ -19,11 +19,12 @@ def hello():
   
   json_response = response.json()
   questions = json_response["modules"][0]["forms"][0]["questions"]
-  print(questions)
+  #print(questions)
+  print('-------')
   for element in questions:
-    print( element["is_group"])
-    if not element["is_group"] or element["type:
-      print("")
+    
+    if not element["is_group"] or element["type"] != "Trigger" or element["type"] is not "FieldList" :
+      print(element["type"] + ' ' + element["label"])
       el = {}
     #el["Label"] = fixStr(element["label"])
     #el["LabelFR"] = fixStr(element["translations"]["en"])
@@ -33,7 +34,7 @@ def hello():
       el["required"] = element["required"];
     #if (el["type"] == 'Select'):
       #if (element["options"]):
-  print(json.dumps(el))  
+  #print(json.dumps(el))  
   
   return "Hello World!"
   
