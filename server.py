@@ -34,6 +34,7 @@ def hello():
       el["type"] = element["type"];
       el["required"] = element["required"];
       el["commcareid"] = element["value"][ element["value"].rfind("/")+1 : : ]
+      el["options"] = []
       
       # if there's a fixture, get the data
       ds = "data_source"
@@ -43,47 +44,37 @@ def hello():
           fixture = element["data_source"]["instance_ref"]
           
           fixurl = element["data_source"]["instance_ref"][ element["data_source"]["instance_ref"].rfind(":")+1 : : ]
-          print('fixurl = ' + fixurl)
           print(app.CommCareBaseURL + 'fixture/?fixture_type=' + fixurl)
           response = requests.get(
               app.CommCareBaseURL + 'fixture/?fixture_type=' + fixurl,
               headers={'Accept': 'application/json', 'Authorization': 'ApiKey ' + app.CommCareAPIKey }      
           )
           fixture_response = response.json()
-          print((fixture_response))
           #print(json.dumps(fixture_response))
           
           for option in fixture_response["objects"]:
-            print(json.dumps(option))
             opt_val_obj = {}
-            i = 0
             #print('len = ' + str(len(option["fields"])))
-            print(list(option["fields"].items())[0])
             for field in option["fields"]:
               if len(option["fields"]) > 2:
-                if i == 0:
-                  opt_val_obj["root_id"] = option["fields"][field]
-                if i == 1:
-                  opt_val_obj["label"] = option["fields"][field]
-                if i == 2:
-                  opt_val_obj["key"] = option["fields"][field]
+                opt_val_obj["root_id"] = option["fields"][list(option["fields"])[0]]
+                opt_val_obj["label"] = option["fields"][list(option["fields"])[1]]
+                opt_val_obj["key"] = option["fields"][list(option["fields"])[2]]
+
               else:
-                if i == 0:
-                  opt_val_obj["label"] = option["fields"][field]
-                if i == 1:
-                  opt_val_obj["key"] = option["fields"][field]                
+                opt_val_obj["label"] = option["fields"][list(option["fields"])[0]]
+                opt_val_obj["key"] = option["fields"][list(option["fields"])[1]]            
               
-              i = i + 1
               
-              print('i=' + str(i))
-              print(field + ' = ' + option["fields"][field])
-            print(opt_val_obj)
+            
+            el["options"].append(opt_val_obj)
+            
           
 
-          
+      print(json.dumps(el))  
     #if (el["type"] == 'Select'):
       #if (element["options"]):
-  print(json.dumps(el))  
+    
   
   return "Hello World!"
   
