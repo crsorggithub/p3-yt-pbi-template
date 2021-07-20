@@ -23,7 +23,7 @@ def hello():
   print('-------')
   for element in questions:
     
-    if not element["is_group"] or element["type"] != "Trigger" or element["type"] is not "FieldList" :
+    if (not element["is_group"]) or element["type"] != "Trigger" or element["type"] is not "FieldList" :
       print(element["type"] + ' ' + element["label"])
       el = {}
     #el["Label"] = fixStr(element["label"])
