@@ -36,8 +36,10 @@ def hello():
       el["commcareid"] = element["value"][ element["value"].rfind("/")+1 : : ]
       
       # if there's a fixture, get the data
-      if element["data_source"]:
-        if element["data_source"]["instance_ref"]:
+      ds = "data_source"
+      if ds in element:
+        ir = "instance_ref"
+        if ir  in element["data_source"]:
           fixture = element["data_source"]["instance_ref"]
           print('fixture = ' + fixture)
           
