@@ -36,15 +36,16 @@ def hello():
       el["commcareid"] = element["value"][ element["value"].rfind("/")+1 : : ]
       el["options"] = []
       
+      if el["type"] == "MSelect":
+        print("---------------------- MSELECT")
+        print(json.dumps(element))
       # if there's a fixture, get the data
       ds = "data_source"
       if ds in element:
         ir = "instance_ref"
         if ir  in element["data_source"]:
           fixture = element["data_source"]["instance_ref"]
-          
           fixurl = element["data_source"]["instance_ref"][ element["data_source"]["instance_ref"].rfind(":")+1 : : ]
-          print(app.CommCareBaseURL + 'fixture/?fixture_type=' + fixurl)
           response = requests.get(
               app.CommCareBaseURL + 'fixture/?fixture_type=' + fixurl,
               headers={'Accept': 'application/json', 'Authorization': 'ApiKey ' + app.CommCareAPIKey }      
@@ -54,18 +55,14 @@ def hello():
           
           for option in fixture_response["objects"]:
             opt_val_obj = {}
-            #print('len = ' + str(len(option["fields"])))
             for field in option["fields"]:
               if len(option["fields"]) > 2:
                 opt_val_obj["root_id"] = option["fields"][list(option["fields"])[0]]
                 opt_val_obj["label"] = option["fields"][list(option["fields"])[1]]
                 opt_val_obj["key"] = option["fields"][list(option["fields"])[2]]
-
               else:
                 opt_val_obj["label"] = option["fields"][list(option["fields"])[0]]
-                opt_val_obj["key"] = option["fields"][list(option["fields"])[1]]            
-              
-              
+                opt_val_obj["key"] = option["fields"][list(option["fields"])[1]]                                       
             
             el["options"].append(opt_val_obj)
             
