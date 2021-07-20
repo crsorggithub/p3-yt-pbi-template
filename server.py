@@ -58,7 +58,7 @@ def hello():
             opt_val_obj = {}
             i = 0
             #print('len = ' + str(len(option["fields"])))
-            print(list(option.items())[0])
+            print(list(option["fields"].items())[0])
             for field in option["fields"]:
               if len(option["fields"]) > 2:
                 if i == 0:
