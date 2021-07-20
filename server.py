@@ -12,15 +12,20 @@ def hello():
   app.CommCareAPIKey = os.environ.get('CommCareAPIKey')
   app.CommCareBaseURL = os.environ.get('CommCareBaseURL')
 
-  response = requests.get(
-      app.CommCareBaseURL + 'application/a1b787437bda83e6976f0706d46961ff',
-      headers={'Accept': 'application/json', 'Authorization': 'ApiKey ' + app.CommCareAPIKey }      
-  )
+
+  
+  try:
+    response = requests.get(
+        app.CommCareBaseURL + 'application/a1b787437bda83e6976f0706d46961ff',
+        headers={'Accept': 'application/json', 'Authorization': 'ApiKey ' + app.CommCareAPIKey }      
+    )
+  except requests.exceptions.RequestException as e:  # This is the correct syntax
+      raise SystemExit(e)  
   
   json_response = response.json()
   questions = json_response["modules"][0]["forms"][0]["questions"]
   #print(questions)
-  print('-------')
+  out_data = {}
   for element in questions:
     
     #print (str(not element["is_group"]) + ' ' + str(element["type"] != "Trigger") + ' ' + str(element["type"] != "FieldList"))
@@ -38,21 +43,15 @@ def hello():
 
       ds = "data_source"
             
-      if el["type"] == "MSelect" and ds not in element:
-        print("---------------------- MSELECT ----")
+      if (el["type"] == "MSelect"  or el["type"] == "Select" )and ds not in element:
         
         for option in element["options"]:
-          
-          print(option)
-          print(option["label"])
-          print(option["translatons"]["es"])
-          print(option["translatons"]["por"])
-          print(option["translatons"]["fra"])
+
           opt_val_obj = {}
           opt_val_obj["label"] = option["label"]
-          opt_val_obj["labelES"] = option["translatons"]["es"]
-          opt_val_obj["labelPOR"] = option["translatons"]["por"]
-          opt_val_obj["labelFRA"] = option["translatons"]["fra"]
+          opt_val_obj["labelES"] = option["translations"]["es"]
+          opt_val_obj["labelPOR"] = option["translations"]["por"]
+          opt_val_obj["labelFRA"] = option["translations"]["fra"]
           opt_val_obj["key"] = option["value"]
         
         el["options"].append(opt_val_obj)
@@ -70,6 +69,7 @@ def hello():
               app.CommCareBaseURL + 'fixture/?fixture_type=' + fixurl,
               headers={'Accept': 'application/json', 'Authorization': 'ApiKey ' + app.CommCareAPIKey }      
           )
+          print("fixture_response = " + str(response))
           fixture_response = response.json()
           #print(json.dumps(fixture_response))
           
@@ -91,7 +91,9 @@ def hello():
       print(json.dumps(el))  
     #if (el["type"] == 'Select'):
       #if (element["options"]):
+  out_data.append(el)
     
+  print(out_data)
   
   return "Hello World!"
   
