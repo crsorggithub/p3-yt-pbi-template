@@ -26,11 +26,12 @@ def hello():
   questions = json_response["modules"][0]["forms"][0]["questions"]
   #print(questions)
   out_data = {}
+  out_arr = []
   for element in questions:
     
     #print (str(not element["is_group"]) + ' ' + str(element["type"] != "Trigger") + ' ' + str(element["type"] != "FieldList"))
     if (not element["is_group"]) and (element["type"] != "Trigger" and element["type"] != "FieldList") :
-      print(element["type"] + ': ' + element["label"])
+      #print(element["type"] + ': ' + element["label"])
       el = {}
       el["Label"] = element["label"]
       el["LabelFR"] = (element["translations"]["en"])
@@ -56,7 +57,6 @@ def hello():
         
         el["options"].append(opt_val_obj)
       # if there's a fixture, get the data
-      
       ds = "data_source"
       if ds in element:
         ir = "instance_ref"
@@ -86,14 +86,14 @@ def hello():
             
             el["options"].append(opt_val_obj)
             
-          
 
-      print(json.dumps(el))  
     #if (el["type"] == 'Select'):
       #if (element["options"]):
   print("about to append: " + str(el))
-  out_data.append(el)
+  out_arr.append(el)
     
+  print(out_arr)
+  out_data["fields"] = out_arr
   print(out_data)
   
   return "Hello World!"
