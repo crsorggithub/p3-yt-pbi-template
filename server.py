@@ -87,10 +87,11 @@ def hello():
             el["options"].append(opt_val_obj)
             
 
-    #if (el["type"] == 'Select'):
-      #if (element["options"]):
-  print("about to append: " + str(el))
-  out_arr.append(el)
+      print("about to append: " + str(el))
+      out_arr.append(el)
+      
+  # Data fetched, let's connect to YouTrack
+  
     
   print(out_arr)
   out_data["fields"] = out_arr
