@@ -91,6 +91,7 @@ def hello():
       print(json.dumps(el))  
     #if (el["type"] == 'Select'):
       #if (element["options"]):
+  print("about to append: " + str(el))
   out_data.append(el)
     
   print(out_data)
