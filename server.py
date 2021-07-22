@@ -11,7 +11,8 @@ def hello():
 
   app.CommCareAPIKey = os.environ.get('CommCareAPIKey')
   app.CommCareBaseURL = os.environ.get('CommCareBaseURL')
-
+  app.YTToken = os.environ.get('YTtokenv3')
+  app.YTGoldCopyURL = os.environ.get('YTGoldCopyURL')
 
   
   try:
@@ -96,6 +97,14 @@ def hello():
   print(out_arr)
   out_data["fields"] = out_arr
   print(out_data)
+  
+  try:
+    response = requests.get(
+        app.YTGoldCopyURL + 'application/a1b787437bda83e6976f0706d46961ff',
+        headers={'Accept': 'application/json', 'Authorization': 'ApiKey ' + app.CommCareAPIKey }      
+    )
+  except requests.exceptions.RequestException as e:  # This is the correct syntax
+      raise SystemExit(e)    
   
   return "Hello World!"
   
