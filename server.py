@@ -99,12 +99,17 @@ def hello():
   print(out_data)
   
   project_template = {"name" : "CommCare Project Template", "description": "This is the CommCare project template. It should be used for creating new projects receiving data from the CommCare project space.", "template": True}
+  
+  datatata = {"customFields":[]}
+  
   try:
-    #response = requests.post(
-    #    app.YTGoldCopyURL + '/api/admin/projects',
-    #    headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + app.YTToken } ,
-    #    data = myobj
-    #)
+    response = requests.post(
+        app.YTGoldCopyURL + '/api/admin/projects',
+        headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + app.YTToken, 
+        data = {} 
+    )
+    json_response = response.json()
+    print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)    
   
