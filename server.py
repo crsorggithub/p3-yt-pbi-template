@@ -100,20 +100,22 @@ def hello():
   
   project_template = {"name" : "CommCare Project Template", "description": "This is the CommCare project template. It should be used for creating new projects receiving data from the CommCare project space.", "template": True}
   
-  datatata = {"customFields":[]}
+  datatata = {"customFields":[
+    {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { text: "" }}
+  ]}
   
   try:
     response = requests.post(
         app.YTGoldCopyURL + '/api/admin/projects',
-        headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + app.YTToken, 
-        data = {} 
+        headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + app.YTToken}, 
+        data = datatata 
     )
     json_response = response.json()
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)    
   
-  return "Hello World!"
+  return "Hello World! " 
   
 
 if __name__ == "__main__":
