@@ -122,32 +122,37 @@ def hello():
 	  }
   }
   
+  datatata = {"customFields":[
+    {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { "text": "test" }}
+  ]}
+  
   out = {
 	"description": "A new project created from rest api",
 	"name": "GRA Project",
 	"shortName": "GRP",
 	"leader":{
-		"id":"1-2"
+		"id":"1-1"
 	  }
   }
-  datatata = {"customFields":[
-    {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { "text": "test" }}
-  ]}
+
   
-  try:
-    print(app.YTGoldCopyURL + '/api/admin/projects?fields=id,shortName,name,leader(id,login,name)')
-    response = requests.post(
-        app.YTGoldCopyURL + '/api/admin/projects?fields=id,shortName,name,leader(id,login,name)',
-        headers={
+  hdrs = {
           'Accept': 'application/json', 
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + app.YTToken
-        }, 
+        }
+  
+  try:
+    print(app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)')
+    response = requests.post(
+        app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)',
+        headers=hdrs,
         data = out 
     )
     json_response = response.json()
-    print(response.headers)
-    print(put)
+    
+    print(hdrs)
+    print(out)
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)    
