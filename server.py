@@ -128,8 +128,8 @@ def hello():
   
   out = {
 	"description": "A new project created from rest api",
-	"name": "GRA Project",
-	"shortName": "GRP",
+	"name": "Test 1 Project",
+	"shortName": "TST1",
 	"leader":{
 		"id":"1-1"
 	  }
@@ -147,11 +147,12 @@ def hello():
     response = requests.post(
         app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)',
         headers=hdrs,
-        data = out 
+        json = out 
     )
     json_response = response.json()
     
     print(hdrs)
+    
     print(out)
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
