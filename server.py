@@ -46,8 +46,8 @@ def hello():
   
   out = {
 	"description": "A new project created from rest api",
-	"name": "Test 1 Project",
-	"shortName": "TST1",
+	"name": "Test 3 Project",
+	"shortName": "TST3",
 	"leader":{
 		"id":"1-1"
 	  }
@@ -59,9 +59,8 @@ def hello():
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + app.YTToken
         }
-  
+  # Create the project template
   try:
-    print(app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)')
     response = requests.post(
         app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)',
         headers=hdrs,
@@ -69,13 +68,37 @@ def hello():
     )
     json_response = response.json()
     
-    print(hdrs)
-    
-    print(out)
+    projectid = json_response['id']
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)   
   
+  # Add the custom fields
+  """
+  field = {
+    "fieldType": {
+      "id": "enum[1]"
+    },
+    "name": "Gender",
+    "isDisplayedInIssueList": true,
+    "isAutoAttached": false,
+    "isPublic": true
+  }  
+  
+  try:
+    response = requests.post(
+        app.YTGoldCopyURL + '/youtrack/api/admin/customFieldSettings/customFields?fields=id,name,fieldType(presentation,id)',
+        headers=hdrs,
+        json = field 
+    )
+    json_response = response.json()
+    
+    fieldid = json_response['id']
+    print(json_response)
+  except requests.exceptions.RequestException as e:  # This is the correct syntax
+      raise SystemExit(e)   
+    
+  """  
   
   """
   try:
