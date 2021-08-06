@@ -21,15 +21,15 @@ def hello():
   app.YTGoldCopyURL = os.environ.get('YTGoldCopyURL')
   yt = YouTrack(app.YTGoldCopyURL + '/youtrack/', token=app.YTToken)
   
-  Project = namedtuple('Project', 'id name description lead')
+  #Project = namedtuple('Project', 'id name description lead')
 
-  project = Project(id="CCT", name="ComCare Template", description="This is the CommCare Template", lead="root")
-  yt.createProject(project)
+  #project = Project(id="CCT", name=str("ComCare Template"), description="This is the CommCare Template", lead="root")
+  #yt.createProject(project)
 
 
 
   #project = yt.createProject(probj)
-  print(project)
+  #print(project)
   
   try:
     response = requests.get(
@@ -114,8 +114,14 @@ def hello():
   out_data["fields"] = out_arr
   print(out_data)
   
-  """
-  project_template = {"name" : "CommCare Project Template", "description": "This is the CommCare project template. It should be used for creating new projects receiving data from the CommCare project space.", "template": True}
+  project_template = {
+    "shortName":"CCT",
+    "name" : "CommCare Project Template", 
+    "description": "This is the CommCare project template. It should be used for creating new projects receiving data from the CommCare project space.", 
+    "leader":{
+		  "id":"1-2"
+	  }
+  }
   
   datatata = {"customFields":[
     {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { "text": "test" }}
@@ -124,14 +130,13 @@ def hello():
   try:
     response = requests.post(
         app.YTGoldCopyURL + '/api/admin/projects',
-        headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + app.YTToken}, 
+        headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + app.YTToken, 'Content-Type': 'application/json',}, 
         data = datatata 
     )
     json_response = response.json()
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)    
-  """
   
 
   
