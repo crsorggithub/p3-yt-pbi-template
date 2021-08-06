@@ -17,7 +17,9 @@ def hello():
   app.YTGoldCopyURL = os.environ.get('YTGoldCopyURL')
   yt = YouTrack(app.YTGoldCopyURL + '/youtrack/', token=app.YTToken)
 
-
+  probj = {'id':'CCT','name':'CommCare Template','description':'This is the CommCare Template','lead':'root'}
+  project = yt.createProject(probj)
+  print(project)
   
   try:
     response = requests.get(
@@ -102,7 +104,7 @@ def hello():
   out_data["fields"] = out_arr
   print(out_data)
   
-  ***
+  """
   project_template = {"name" : "CommCare Project Template", "description": "This is the CommCare project template. It should be used for creating new projects receiving data from the CommCare project space.", "template": True}
   
   datatata = {"customFields":[
@@ -119,7 +121,9 @@ def hello():
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)    
-  ***
+  """
+  
+
   
   return "Hello World! " 
   
