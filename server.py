@@ -46,8 +46,8 @@ def hello():
   
   out = {
 	"description": "A new project created from rest api",
-	"name": "Test 3 Project",
-	"shortName": "TST3",
+	"name": "Test 22 Project",
+	"shortName": "TST22",
 	"leader":{
 		"id":"1-1"
 	  }
@@ -74,15 +74,15 @@ def hello():
       raise SystemExit(e)   
   
   # Add the custom fields
-  """
+  
   field = {
     "fieldType": {
       "id": "enum[1]"
     },
     "name": "Gender",
-    "isDisplayedInIssueList": true,
-    "isAutoAttached": false,
-    "isPublic": true
+    "isDisplayedInIssueList": "true",
+    "isAutoAttached": "false",
+    "isPublic": "true"
   }  
   
   try:
@@ -98,7 +98,6 @@ def hello():
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)   
     
-  """  
   
   """
   try:
