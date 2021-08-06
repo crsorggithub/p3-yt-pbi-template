@@ -123,15 +123,27 @@ def hello():
 	  }
   }
   
+  out = {
+	"description": "A new project created from rest api",
+	"name": "GRA Project",
+	"shortName": "GRP",
+	"leader":{
+		"id":"1-2"
+	  }
+  }
   datatata = {"customFields":[
     {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { "text": "test" }}
   ]}
   
   try:
     response = requests.post(
-        app.YTGoldCopyURL + '/api/admin/projects',
-        headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + app.YTToken, 'Content-Type': 'application/json',}, 
-        data = datatata 
+        app.YTGoldCopyURL + '/api/admin/projects?fields=id,shortName,name,leader(id,login,name)',
+        headers={
+          'Accept': 'application/json', 
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + app.YTToken
+        }, 
+        data = out 
     )
     json_response = response.json()
     print(json_response)
