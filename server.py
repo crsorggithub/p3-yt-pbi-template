@@ -19,9 +19,8 @@ def hello():
   app.CommCareBaseURL = os.environ.get('CommCareBaseURL')
   app.YTToken = os.environ.get('YTtokenv3')
   app.YTGoldCopyURL = os.environ.get('YTGoldCopyURL')
-  yt = YouTrack(app.YTGoldCopyURL + '/youtrack/', token=app.YTToken)
+  #yt = YouTrack(app.YTGoldCopyURL + '/youtrack/', token=app.YTToken)
   
-  #Project = namedtuple('Project', 'id name description lead')
 
   #project = Project(id="CCT", name=str("ComCare Template"), description="This is the CommCare Template", lead="root")
   #yt.createProject(project)
@@ -136,6 +135,7 @@ def hello():
   ]}
   
   try:
+    print(app.YTGoldCopyURL + '/api/admin/projects?fields=id,shortName,name,leader(id,login,name)')
     response = requests.post(
         app.YTGoldCopyURL + '/api/admin/projects?fields=id,shortName,name,leader(id,login,name)',
         headers={
@@ -146,6 +146,8 @@ def hello():
         data = out 
     )
     json_response = response.json()
+    print(response.headers)
+    print(put)
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)    
