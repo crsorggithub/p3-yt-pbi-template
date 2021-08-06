@@ -30,6 +30,54 @@ def hello():
   #project = yt.createProject(probj)
   #print(project)
   
+  
+  project_template = {
+    "shortName":"CCT",
+    "name" : "CommCare Project Template", 
+    "description": "This is the CommCare project template. It should be used for creating new projects receiving data from the CommCare project space.", 
+    "leader":{
+		  "id":"1-2"
+	  }
+  }
+  
+  datatata = {"customFields":[
+    {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { "text": "test" }}
+  ]}
+  
+  out = {
+	"description": "A new project created from rest api",
+	"name": "Test 1 Project",
+	"shortName": "TST1",
+	"leader":{
+		"id":"1-1"
+	  }
+  }
+
+  
+  hdrs = {
+          'Accept': 'application/json', 
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + app.YTToken
+        }
+  
+  try:
+    print(app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)')
+    response = requests.post(
+        app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)',
+        headers=hdrs,
+        json = out 
+    )
+    json_response = response.json()
+    
+    print(hdrs)
+    
+    print(out)
+    print(json_response)
+  except requests.exceptions.RequestException as e:  # This is the correct syntax
+      raise SystemExit(e)   
+  
+  
+  """
   try:
     response = requests.get(
         app.CommCareBaseURL + 'application/a1b787437bda83e6976f0706d46961ff',
@@ -112,51 +160,8 @@ def hello():
   print(out_arr)
   out_data["fields"] = out_arr
   print(out_data)
-  
-  project_template = {
-    "shortName":"CCT",
-    "name" : "CommCare Project Template", 
-    "description": "This is the CommCare project template. It should be used for creating new projects receiving data from the CommCare project space.", 
-    "leader":{
-		  "id":"1-2"
-	  }
-  }
-  
-  datatata = {"customFields":[
-    {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { "text": "test" }}
-  ]}
-  
-  out = {
-	"description": "A new project created from rest api",
-	"name": "Test 1 Project",
-	"shortName": "TST1",
-	"leader":{
-		"id":"1-1"
-	  }
-  }
-
-  
-  hdrs = {
-          'Accept': 'application/json', 
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + app.YTToken
-        }
-  
-  try:
-    print(app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)')
-    response = requests.post(
-        app.YTGoldCopyURL + '/youtrack/api/admin/projects?fields=id,shortName,name,leader(id,login,name)',
-        headers=hdrs,
-        json = out 
-    )
-    json_response = response.json()
-    
-    print(hdrs)
-    
-    print(out)
-    print(json_response)
-  except requests.exceptions.RequestException as e:  # This is the correct syntax
-      raise SystemExit(e)    
+  """
+   
   
 
   
