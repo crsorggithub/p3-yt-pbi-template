@@ -4,6 +4,10 @@ import requests
 import re
 import json
 from youtrack.connection import Connection as YouTrack
+from collections import namedtuple
+
+
+
 
 from flask import Flask
 app = Flask(__name__)
@@ -16,9 +20,15 @@ def hello():
   app.YTToken = os.environ.get('YTtokenv3')
   app.YTGoldCopyURL = os.environ.get('YTGoldCopyURL')
   yt = YouTrack(app.YTGoldCopyURL + '/youtrack/', token=app.YTToken)
+  
+  Project = namedtuple('Project', 'id name description lead')
 
-  probj = {'id':'CCT','name':'CommCare Template','description':'This is the CommCare Template','lead':'root'}
-  project = yt.createProject(probj)
+  project = Project(id="CCT", name="ComCare Template", description="This is the CommCare Template", lead="root")
+  yt.createProject(project)
+
+
+
+  #project = yt.createProject(probj)
   print(project)
   
   try:
