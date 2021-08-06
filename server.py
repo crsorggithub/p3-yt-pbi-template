@@ -101,7 +101,7 @@ def hello():
   project_template = {"name" : "CommCare Project Template", "description": "This is the CommCare project template. It should be used for creating new projects receiving data from the CommCare project space.", "template": True}
   
   datatata = {"customFields":[
-    {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { text: "" }}
+    {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { "text": "test" }}
   ]}
   
   try:
