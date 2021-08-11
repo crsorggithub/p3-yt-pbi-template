@@ -53,7 +53,7 @@ def hello():
 	  }
   }
 
-  
+  """
   hdrs = {
           'Accept': 'application/json', 
           'Content-Type': 'application/json',
@@ -67,11 +67,12 @@ def hello():
         json = out 
     )
     json_response = response.json()
-    
     projectid = json_response['id']
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)   
+
+"""
   
   # Add the custom fields
   
