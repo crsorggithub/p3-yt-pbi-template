@@ -19,17 +19,13 @@ def hello():
   app.CommCareBaseURL = os.environ.get('CommCareBaseURL')
   app.YTToken = os.environ.get('YTtokenv3')
   app.YTGoldCopyURL = os.environ.get('YTGoldCopyURL')
-  #yt = YouTrack(app.YTGoldCopyURL + '/youtrack/', token=app.YTToken)
+
   
-
-  #project = Project(id="CCT", name=str("ComCare Template"), description="This is the CommCare Template", lead="root")
-  #yt.createProject(project)
-
-
-
-  #project = yt.createProject(probj)
-  #print(project)
-  
+  hdrs = {
+    'Accept': 'application/json', 
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + app.YTToken
+  }
   
   project_template = {
     "shortName":"CCT",
@@ -40,9 +36,23 @@ def hello():
 	  }
   }
   
-  datatata = {"customFields":[
-    {"name" : "Name of Staff Member Receiving Feedback", "$type" : "TextIssueCustomField", "value" : { "text": "test" }}
-  ]}
+  addTestField = { "fieldType": { "id": "text" }, "name": "Name of person collecting feedback 3", "isDisplayedInIssueList": True, "isAutoAttached": True, "isPublic": True }
+  
+  # Add the test field
+  try:
+    response = requests.post(
+        app.YTGoldCopyURL + '/youtrack/api/admin/customFieldSettings/customFields?fields=id,name,fieldType(presentation,id)',
+        headers=hdrs,
+        json = addTestField 
+    )
+    json_response = response.json()
+    
+    print(json_response)
+    fieldId = json_response["id"]
+    print("id = " + fieldId)
+    
+  except requests.exceptions.RequestException as e:  # This is the correct syntax
+      raise SystemExit(e)     
   
   out = {
 	"description": "A new project created from rest api",
@@ -90,7 +100,7 @@ def hello():
     "isAutoAttached": "false",
     "isPublic": "true"
   }  
-  
+  """
   try:
     response = requests.post(
         app.YTGoldCopyURL + '/youtrack/api/admin/customFieldSettings/customFields?fields=id,name,fieldType(presentation,id)',
@@ -103,7 +113,7 @@ def hello():
     print(json_response)
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)   
-    
+  """
   
   """
   try:
