@@ -75,6 +75,11 @@ def hello():
 """
   
   # Add the custom fields
+#"GRA Project","id":"0-1"
+#"Test 1 Project","id":"0-34"
+#"Test 2 Project","id":"0-32"
+#"Test 22 Project","id":"0-37"
+  
   
   field = {
     "fieldType": {
