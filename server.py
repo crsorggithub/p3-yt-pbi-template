@@ -90,16 +90,17 @@ def hello():
 #"Test 2 Project","id":"0-32"
 #"Test 22 Project","id":"0-37"
   
-  
+  # Add the field to the project
   field = {
     "fieldType": {
       "id": "enum[1]"
     },
     "name": "Gender",
-    "isDisplayedInIssueList": "true",
+    "isDisplayedInIssueList": True,
     "isAutoAttached": "false",
-    "isPublic": "true"
+    "isPublic": True
   }  
+  
   """
   try:
     response = requests.post(
@@ -115,6 +116,8 @@ def hello():
       raise SystemExit(e)   
   """
   
+  
+  # Get the commcare data and put it in an array
   """
   try:
     response = requests.get(
