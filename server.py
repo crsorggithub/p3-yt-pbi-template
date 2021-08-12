@@ -36,24 +36,8 @@ def hello():
 	  }
   }
   
-  addTestField = { "fieldType": { "id": "text" }, "name": "Name of person collecting feedback 3", "isDisplayedInIssueList": True, "isAutoAttached": True, "isPublic": True }
-  
-  # Add the test field
-  try:
-    response = requests.post(
-        app.YTGoldCopyURL + '/youtrack/api/admin/customFieldSettings/customFields?fields=id,name,fieldType(presentation,id)',
-        headers=hdrs,
-        json = addTestField 
-    )
-    json_response = response.json()
-    
-    print(json_response)
-    fieldId = json_response["id"]
-    print("id = " + fieldId)
-    
-  except requests.exceptions.RequestException as e:  # This is the correct syntax
-      raise SystemExit(e)     
-  
+
+  # Add the new project to YouTdack
   out = {
 	"description": "A new project created from rest api",
 	"name": "Test 22 Project",
@@ -89,8 +73,26 @@ def hello():
 #"Test 1 Project","id":"0-34"
 #"Test 2 Project","id":"0-32"
 #"Test 22 Project","id":"0-37"
+  addTestField = { "fieldType": { "id": "text" }, "name": "Name of person collecting feedback 3", "isDisplayedInIssueList": True, "isAutoAttached": True, "isPublic": True }
   
-  # Add the field to the project
+  # Add the test field
+  try:
+    response = requests.post(
+        app.YTGoldCopyURL + '/youtrack/api/admin/customFieldSettings/customFields?fields=id,name,fieldType(presentation,id)',
+        headers=hdrs,
+        json = addTestField 
+    )
+    json_response = response.json()
+    
+    print(json_response)
+    fieldId = json_response["id"]
+    print("id = " + fieldId)
+    
+  except requests.exceptions.RequestException as e:  # This is the correct syntax
+      raise SystemExit(e)     
+  
+
+  # Add the field to YouTrack
   field = {
     "fieldType": {
       "id": "enum[1]"
@@ -116,6 +118,53 @@ def hello():
       raise SystemExit(e)   
   """
   
+    # Attach the field to the project
+  field = {
+  "field": {
+    "aliases": null,
+    "ordinal": 8,
+    "localizedName": null,
+    "instances": [],
+    "usages": [],
+    "isAutoAttached": false,
+    "fieldDefaults": {
+      "canBeEmpty": true,
+      "emptyFieldText": null,
+      "isPublic": true,
+      "id": "88-45",
+      "$type": "CustomFieldDefaults"
+    },
+    "isUpdateable": True,
+    "isDisplayedInIssueList": True,
+    "fieldType": {
+      "valueType": "text",
+      "isMultiValue": False,
+      "isBundleType": False,
+      "id": "text",
+      "$type": "FieldType"
+    },
+    "hasRunningJob": False,
+    "name": "Due Date",
+    "id": "88-45",
+    "$type": "CustomField"
+  },
+  "$type": "SimpleProjectCustomField"
+}
+  
+  """
+  try:
+    response = requests.post(
+        app.YTGoldCopyURL + '/youtrack/api/admin/projects/0-1/customFields?fields=id,name',
+        headers=hdrs,
+        json = field 
+    )
+    json_response = response.json()
+    
+    fieldid = json_response['id']
+    print(json_response)
+  except requests.exceptions.RequestException as e:  # This is the correct syntax
+      raise SystemExit(e)   
+  """
   
   # Get the commcare data and put it in an array
   """
