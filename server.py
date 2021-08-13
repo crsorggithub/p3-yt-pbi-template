@@ -73,9 +73,27 @@ def hello():
 #"Test 1 Project","id":"0-34"
 #"Test 2 Project","id":"0-32"
 #"Test 22 Project","id":"0-37"
-  addTestField = { "fieldType": { "id": "text" }, "name": "Name of person collecting feedback 3", "isDisplayedInIssueList": True, "isAutoAttached": True, "isPublic": True }
+
+# DELETE THE FIELDS WE DONT NEED FIRST
+  try:
+    response = requests.get(
+        app.YTGoldCopyURL + '/youtrack/api/admin/projects/0-1/fields?fields=field(aliases,isAutoAttached,isUpdateable,name,id),canBeEmpty,isPublic,id',
+        headers=hdrs
+    )
+    json_response = response.json()
+    print('existing fields = ------------')
+    print(json_response)
+    #fieldId = json_response["id"]
+    
+  except requests.exceptions.RequestException as e:  # This is the correct syntax
+      raise SystemExit(e)     
+  
+
+
+  addTestField = { "fieldType": { "id": "text" }, "name": "Name of person collecting feedback 4", "isDisplayedInIssueList": True, "isAutoAttached": True, "isPublic": True }
   
   # Add the test field
+  """
   try:
     response = requests.post(
         app.YTGoldCopyURL + '/youtrack/api/admin/customFieldSettings/customFields?fields=id,name,fieldType(presentation,id)',
@@ -85,13 +103,14 @@ def hello():
     json_response = response.json()
     
     print(json_response)
-    fieldId = json_response["id"]
+    #fieldId = json_response["id"]
+    fieldId = "88-47"
     print("id = " + fieldId)
     
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)     
   
-  
+  """
 
   # Add the field to YouTrack
   field = {
@@ -122,16 +141,13 @@ def hello():
     # Attach the field to the project
   field = {
   "field": {
-    "aliases": null,
     "ordinal": 8,
-    "localizedName": null,
     "instances": [],
     "usages": [],
-    "isAutoAttached": false,
+    "isAutoAttached": False,
     "fieldDefaults": {
-      "canBeEmpty": true,
-      "emptyFieldText": null,
-      "isPublic": true,
+      "canBeEmpty": True,
+      "isPublic": True,
       "id": "88-45",
       "$type": "CustomFieldDefaults"
     },
