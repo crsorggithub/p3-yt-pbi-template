@@ -25,7 +25,7 @@ def hello():
   }
 
 
-  projectId = "0-1"  
+  projectId = "0-34"  
   
   # DELETE THE FIELDS WE DONT NEED FIRST
   #first get the fields in the project that we dont need  
@@ -35,13 +35,15 @@ def hello():
         headers=hdrs
     )
     json_response = response.json()
+    print(json_response)
     # find the fields we dont like in the response
     if len(json_response)> 0:
+      # create a list to store all the ID's
       listOfFieldsToDelete = []
       # parse each field
       for field in json_response:
         # We dont need these default fields, so if you have any more of them, add them here.
-        if field["field"]["name"] == "Priority" or field["field"]["name"] == "Type"  or field["field"]["name"] == "State" :
+        if field["field"]["name"] == "Priority" or field["field"]["name"] == "Type"  or field["field"]["name"] == "State"  or field["field"]["name"] == "Subsystem" or field["field"]["name"] == "Fix versions" or field["field"]["name"] == "Fix Affected versions"  or field["field"]["name"] == "Fixed in build" or field["field"]["name"] == "Estimation" or field["field"]["name"] == "Spent time":
           #add it to the array
           listOfFieldsToDelete.append(field["id"])
 
@@ -49,15 +51,13 @@ def hello():
     if len(listOfFieldsToDelete) > 0:
       # get the ID and make a request to delete it
       for item in listOfFieldsToDelete:
-
+        print(item)
         try:
           print(app.YTGoldCopyURL + '/youtrack/api/admin/projects/'+ projectId + '/fields/' + item)
-          print(itemjson)
+          print(item)
           response = requests.delete(
               app.YTGoldCopyURL + '/youtrack/api/admin/projects/'+ projectId + '/fields/' + item,
-              headers=hdrs,
-              json = itemjson 
-          )
+              headers=hdrs)
         except requests.exceptions.RequestException as e:  # This is the correct syntax
             raise SystemExit(e)     
 
