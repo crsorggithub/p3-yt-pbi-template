@@ -73,6 +73,7 @@ def hello():
 #"Test 1 Project","id":"0-34"
 #"Test 2 Project","id":"0-32"
 #"Test 22 Project","id":"0-37"
+projectId = "0-1"
 
 # DELETE THE FIELDS WE DONT NEED FIRST
   try:
@@ -89,6 +90,25 @@ def hello():
           
     # If there's default fields, delete them
     if len(listOfFieldsToDelete) > 0:
+      # get the ID and make a request to delete it
+      """
+      try:
+        response = requests.post(
+            app.YTGoldCopyURL + '/youtrack/api/admin/projects/'+ projectId + '/customFields',
+            headers=hdrs,
+            json = addTestField 
+        )
+        json_response = response.json()
+
+        print(json_response)
+        #fieldId = json_response["id"]
+        fieldId = "88-47"
+        print("id = " + fieldId)
+
+      except requests.exceptions.RequestException as e:  # This is the correct syntax
+          raise SystemExit(e)     
+
+      """
         
     #fieldId = json_response["id"]
     
