@@ -81,8 +81,15 @@ def hello():
         headers=hdrs
     )
     json_response = response.json()
-    print('existing fields = ------------')
-    print(json_response)
+    if len(json_response)> 0:
+      listOfFieldsToDelete = []
+      for field in json_response:
+        if field["field"]["name"] == "Priority" or field["field"]["name"] == "Type"  or field["field"]["name"] == "State" :
+          listOfFieldsToDelete.push(field["id"])
+          
+    # If there's default fields, delete them
+    if len(listOfFieldsToDelete) > 0:
+        
     #fieldId = json_response["id"]
     
   except requests.exceptions.RequestException as e:  # This is the correct syntax
