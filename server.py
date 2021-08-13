@@ -76,6 +76,7 @@ def hello():
 projectId = "0-1"
 
 # DELETE THE FIELDS WE DONT NEED FIRST
+#first get the fields in the project that we dont need
   try:
     response = requests.get(
         app.YTGoldCopyURL + '/youtrack/api/admin/projects/0-1/fields?fields=field(aliases,isAutoAttached,isUpdateable,name,id),canBeEmpty,isPublic,id',
@@ -87,34 +88,39 @@ projectId = "0-1"
       for field in json_response:
         if field["field"]["name"] == "Priority" or field["field"]["name"] == "Type"  or field["field"]["name"] == "State" :
           listOfFieldsToDelete.push(field["id"])
-          
+
     # If there's default fields, delete them
     if len(listOfFieldsToDelete) > 0:
       # get the ID and make a request to delete it
-      """
-      try:
-        response = requests.post(
-            app.YTGoldCopyURL + '/youtrack/api/admin/projects/'+ projectId + '/customFields',
-            headers=hdrs,
-            json = addTestField 
-        )
-        json_response = response.json()
 
-        print(json_response)
-        #fieldId = json_response["id"]
-        fieldId = "88-47"
-        print("id = " + fieldId)
 
-      except requests.exceptions.RequestException as e:  # This is the correct syntax
-          raise SystemExit(e)     
+      for item in listOfFieldsToDelete:
+        itemjson = {"field": {
+          "id": item
+        }}  
 
-      """
-        
+        try:
+          response = requests.post(
+              app.YTGoldCopyURL + '/youtrack/api/admin/projects/'+ projectId + '/customFields',
+              headers=hdrs,
+              json = itemjson 
+          )
+          json_response = response.json()
+
+          print(json_response)
+          #fieldId = json_response["id"]
+          #fieldId = "88-47"
+          #print("id = " + fieldId)
+
+        except requests.exceptions.RequestException as e:  # This is the correct syntax
+            raise SystemExit(e)     
+
+
     #fieldId = json_response["id"]
-    
+
   except requests.exceptions.RequestException as e:  # This is the correct syntax
       raise SystemExit(e)     
-  
+
 
 
   addTestField = { "fieldType": { "id": "text" }, "name": "Name of person collecting feedback 4", "isDisplayedInIssueList": True, "isAutoAttached": True, "isPublic": True }
