@@ -43,7 +43,7 @@ def hello():
       # parse each field
       for field in json_response:
         # We dont need these default fields, so if you have any more of them, add them here.
-        if field["field"]["name"] == "Priority" or field["field"]["name"] == "Type"  or field["field"]["name"] == "State"  or field["field"]["name"] == "Subsystem" or field["field"]["name"] == "Fix versions" or field["field"]["name"] == "Fix Affected versions"  or field["field"]["name"] == "Fixed in build" or field["field"]["name"] == "Estimation" or field["field"]["name"] == "Spent time":
+        if field["field"]["name"] == "Priority" or field["field"]["name"] == "Type"  or field["field"]["name"] == "State"  or field["field"]["name"] == "Subsystem" or field["field"]["name"] == "Fix versions" or field["field"]["name"] == "Fix Affected versions"  or field["field"]["name"] == "Fixed in build" or field["field"]["name"] == "Estimation" or field["field"]["name"] == " Affected versions":
           #add it to the array
           listOfFieldsToDelete.append(field["id"])
 
